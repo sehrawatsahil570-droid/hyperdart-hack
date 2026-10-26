@@ -1,0 +1,36 @@
+[
+  {
+    "component": "npm-lens",
+    "query": "compare express, fastify, koa",
+    "entities": [
+      {
+        "word": "express",
+        "sourceID": "express",
+        "collectionName": "NPM_PACKAGES",
+        "collectionType": "HD_PACKAGES",
+        "entityInfo": { "repository_url": "https://github.com/expressjs/express" },
+        "relevanceScore": 99.1
+      },
+      {
+        "word": "fastify",
+        "sourceID": "fastify",
+        "collectionName": "NPM_PACKAGES",
+        "collectionType": "HD_PACKAGES",
+        "entityInfo": { "repository_url": "https://github.com/fastify/fastify" },
+        "relevanceScore": 97.4
+      },
+      {
+        "word": "koa",
+        "sourceID": "koa",
+        "collectionName": "NPM_PACKAGES",
+        "collectionType": "HD_PACKAGES",
+        "entityInfo": { "repository_url": "https://github.com/koajs/koa" },
+        "relevanceScore": 96.8
+      }
+    ],
+    "keyword": [],
+    "queryRegex": "compare( npm)?( packages?)? HD_PACKAGES__NPM_PACKAGES(,| vs| versus| and) HD_PACKAGES__NPM_PACKAGES((,| vs| versus| and) HD_PACKAGES__NPM_PACKAGES)?",
+    "unambiguous": true,
+    "suggestedPlace": "sidebar"
+  }
+]

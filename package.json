@@ -1,0 +1,52 @@
+{
+  "name": "npm-lens",
+  "version": "1.0.0",
+  "source": "src/frontend/index.jsx",
+  "main": "dist/index.umd.js",
+  "module": "dist/frontend/index.modern.js",
+  "private": false,
+  "type": "module",
+  "devDependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@hyperdart/backend": "^2.0.2",
+    "@hyperdart/sandbox": "^2.0.0",
+    "@mui/icons-material": "^6.0.0",
+    "@mui/material": "^6.0.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.0",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "vite": "^6.0.11",
+    "vite-plugin-css-injected-by-js": "^3.5.2",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "@hyperdart/frontend": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^6.0.0",
+    "@mui/material": "^6.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.0"
+  },
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "node scripts/validate-publish.js"
+  },
+  "files": [
+    "hyperdart.config.js",
+    "dist",
+    "resource.json"
+  ],
+  "publishConfig": {
+    "registry": "https://dev-registry.hyperdart.com"
+  }
+}
