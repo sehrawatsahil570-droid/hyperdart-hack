@@ -70,5 +70,5 @@ export default  {
 		// key-values added here will be added to the compInfo section of searchData
 	},
 	github: "https://github.com/sehrawatsahil570-droid/hyperdart-hack",
-	demovideo: ""
+	demovideo: "https://youtu.be/xna3mdD7X6Q?si=X89z0rvPLOJeDEj3"
 }
