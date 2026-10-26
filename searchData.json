@@ -1,6 +1,6 @@
 [
   {
-    "component": "npm-lens",
+    "component": "package-pick",
     "query": "compare express, fastify, koa",
     "entities": [
       {

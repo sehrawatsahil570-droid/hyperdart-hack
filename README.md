@@ -1,4 +1,4 @@
-# npm lens
+# package-pick
 
 A hyperDart component that answers npm package questions at a glance: what a package is, how two or three packages compare, what could replace one, and which package fits a task.
 
