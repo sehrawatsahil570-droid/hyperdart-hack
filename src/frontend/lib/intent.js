@@ -6,7 +6,8 @@
 
 const ALTERNATIVES_CUE = /\b(alternatives?|similar( to)?|(packages?|libraries|libs?|modules?) like|replace(ments?|s)?|instead of|substitutes?|competitors?|other than)\b/;
 const COMPARE_CUE = /\b(compare|comparison|vs\.?|versus|difference|differences|between)\b/;
-const LATEST_CUE = /\b(latest|current|newest|most recent|last)\b|\bversion\b/;
+const HISTORY_CUE = /\b(releases|release history|changelog|versions)\b/;
+const LATEST_CUE =/\b(latest|current|newest|most recent|last)\b|\bversion\b/;
 const INSTALL_CUE = /\b(size|sizes|weight|heavy|light|install cost|bundle|typescript|ts|types|typed|esm|cjs|commonjs|es ?modules?|module format|node( ?js)?( versions?)?|engines?|compatib\w*|supports?)\b/;
 // "library for parsing csv", "best package for dates": the user describes a task.
 const USE_CASE_CUE = /\b(packages?|librar(y|ies)|libs?|modules?|tools?)\s+(for|to|that)\b|\b(best|top|recommended?|good)\b/;
@@ -20,8 +21,10 @@ export const INTENT_RULES = [
   { intent: 'alternatives', test: ({ rest, names }) => names.length >= 1 && ALTERNATIVES_CUE.test(rest) },
   { intent: 'versions', test: ({ names, specs }) => names.length === 1 && specs.length >= 1 },
   { intent: 'compare', test: ({ rest, names }) => names.length >= 2 || (names.length === 1 && COMPARE_CUE.test(rest)) },
-  { intent: 'latest', test: ({ rest, names }) => names.length === 1 && LATEST_CUE.test(rest) },
+  { intent: 'history', test: ({ rest, names }) => names.length === 1 && HISTORY_CUE.test(rest) },
+  // install before latest, so "express node version" asks about Node support, not the latest version.
   { intent: 'install', test: ({ rest, names }) => names.length === 1 && INSTALL_CUE.test(rest) },
+  { intent: 'latest', test: ({ rest, names }) => names.length === 1 && LATEST_CUE.test(rest) },
   { intent: 'details', test: ({ names }) => names.length >= 1 },
   { intent: 'usecase', test: ({ names, terms }) => names.length === 0 && terms.length > 0 },
 ];

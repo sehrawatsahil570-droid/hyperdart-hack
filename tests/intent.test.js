@@ -28,6 +28,42 @@ describe('parseIntent: example queries', () => {
   });
 });
 
+describe('parseIntent: wider phrasings (match the extra regexes in hyperdart.config.js)', () => {
+  it.each([
+    ['what is express', ['express'], 'details', ['express']],
+    ['tell me about lodash', ['lodash'], 'details', ['lodash']],
+    ['express npm', ['express'], 'details', ['express']],
+    ['is request deprecated', ['request'], 'details', ['request']],
+    ['react latest version', ['react'], 'latest', ['react']],
+    ['newest version of vue', ['vue'], 'latest', ['vue']],
+    ['react latest', ['react'], 'latest', ['react']],
+    ['express vs fastify', ['express', 'fastify'], 'compare', ['express', 'fastify']],
+    ['react or vue', ['react', 'vue'], 'compare', ['react', 'vue']],
+    ['difference between react and vue', ['react', 'vue'], 'compare', ['react', 'vue']],
+    ['moment alternatives', ['moment'], 'alternatives', ['moment']],
+    ['replace moment', ['moment'], 'alternatives', ['moment']],
+    ['instead of request', ['request'], 'alternatives', ['request']],
+    ['replacement for request', ['request'], 'alternatives', ['request']],
+    ['moment competitors', ['moment'], 'alternatives', ['moment']],
+    ['does express support typescript', ['express'], 'install', ['express']],
+    ['lodash bundle size', ['lodash'], 'install', ['lodash']],
+    ['express node version', ['express'], 'install', ['express']],
+    ['express changelog', ['express'], 'history', ['express']],
+    ['react releases', ['react'], 'history', ['react']],
+    ['express versions', ['express'], 'history', ['express']],
+  ])('%s', (query, names, intent, expectedNames) => {
+    expect(parse(query, names)).toMatchObject({ intent, names: expectedNames });
+  });
+
+  it.each([
+    ['top libraries for charts', [], ['chart']],
+    ['js library to resize images', [], ['resize', 'image']],
+    ['npm package for csv', ['csv'], ['csv']],
+  ])('use case: %s', (query, names, terms) => {
+    expect(parse(query, names)).toMatchObject({ intent: 'usecase', names: [], terms });
+  });
+});
+
 describe('parseIntent: package names', () => {
   it('orders packages as they appear in the query, not as the platform lists them', () => {
     expect(parse('compare vue and react', ['react', 'vue']).names).toEqual(['vue', 'react']);

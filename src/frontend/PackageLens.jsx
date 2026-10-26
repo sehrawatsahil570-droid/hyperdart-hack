@@ -31,6 +31,8 @@ export function viewForIntent({ intent, names, specs, terms }) {
     case 'latest':
     case 'install':
       return { type: 'details', name: names[0], focus: intent };
+    case 'history':
+      return { type: 'history', name: names[0] };
     case 'compare':
       return { type: 'compare', names };
     case 'versions':

@@ -94,10 +94,11 @@ Notes:
 | 1 | alternatives | the query says "alternatives", "similar to", "packages like", "replace", "instead of"… |
 | 2 | versions | one package and one or two version specs |
 | 3 | compare | two or more packages, or "compare / vs / versus" |
-| 4 | latest | "latest / current / newest … version" |
-| 5 | install | "size", "typescript", "esm", "cjs", "node version", "compatible"… |
-| 6 | details | any package named |
-| 7 | use case | no package, and task words remain after removing filler |
+| 4 | history | "releases", "release history", "changelog", "versions" |
+| 5 | install | "size", "typescript", "esm", "cjs", "node version", "compatible"… (before latest, so "node version" is about Node support) |
+| 6 | latest | "latest / current / newest … version" |
+| 7 | details | any package named |
+| 8 | use case | no package, and task words remain after removing filler |
 
 Cue words are tested against the query with the package names removed, so `node-fetch` never reads as "node".
 
@@ -164,21 +165,24 @@ src/frontend/
 
 ## Configuration
 
-Triggers in `hyperdart.config.js` include the provided keywords and regexes, extended for use-case and version queries:
+`hyperdart.config.js` keeps the provided keywords and regexes and extends them, so the component also triggers on how people naturally phrase these questions. 19 keywords and 16 regexes, grouped by intent:
+
+| Intent | Example queries the regexes accept |
+|---|---|
+| Details | `npm express`, `what is express`, `tell me about lodash`, `express npm`, `express package info` |
+| Latest version | `latest version of react`, `react latest version`, `newest version of vue` |
+| Compare | `compare express, fastify, koa`, `express vs fastify`, `react or vue`, `difference between react and vue` |
+| Alternatives | `alternatives to moment`, `moment alternatives`, `replace moment`, `replacement for request`, `instead of request` |
+| Versions | `express 4 vs 5`, `react@18 vs react@19` |
+| Install / compatibility | `is axios esm`, `does express support typescript`, `lodash bundle size`, `express node version`, `is request deprecated` |
+| Release history | `express changelog`, `react releases`, `express versions` |
+| Use case | `best npm package for date formatting`, `top libraries for charts`, `js library to resize images` |
+
+Extra keywords: `alternative to`, `similar packages`, `replacement for`, `node package`, `node module`, `js library`, `javascript library`, `package for`, `library to`, `bundle size`, `esm support`, `typescript support`.
+
+Every phrasing in the table has a test in `tests/intent.test.js`, so a regex never triggers the component on a query it then misreads.
 
 ```js
-triggers: {
-  keywords: ['npm', 'package info', 'packages like', 'compare packages', 'npm package for', 'library for', 'alternatives to'],
-},
-query_format: {
-  regex: [
-    '(npm( packages?)?|package info) HD_PACKAGES.NPM_PACKAGES',
-    '(latest|current) version of HD_PACKAGES.NPM_PACKAGES',
-    'compare( npm)?( packages?)? HD_PACKAGES.NPM_PACKAGES(,| vs| versus| and)? HD_PACKAGES.NPM_PACKAGES((,| vs| versus| and)? HD_PACKAGES.NPM_PACKAGES)?',
-    '(npm )?(alternatives?( to| for)|packages? (like|similar to)) HD_PACKAGES.NPM_PACKAGES( npm)?',
-    'HD_PACKAGES.NPM_PACKAGES( v?[0-9.]+)? (vs|versus) (HD_PACKAGES.NPM_PACKAGES )?v?[0-9.]+',
-  ],
-},
 format: { mainline: true, sidebar: true },
 ```
 
@@ -187,7 +191,7 @@ format: { mainline: true, sidebar: true },
 ```bash
 npm install
 npm start          # local sandbox
-npm test           # Vitest: 129 unit tests for src/frontend/lib (no network)
+npm test           # Vitest: 153 unit tests for src/frontend/lib (no network)
 npm run build      # outputs dist/frontend/index.modern.js
 npm publish        # runs scripts/validate-publish.js (keywords, regex, build, links)
 ```
